@@ -1,5 +1,6 @@
 package org.missions;
 
+import org.missions.tasks.*;
 import viking.framework.goal.GoalList;
 import viking.framework.mission.Mission;
 import viking.framework.script.VikingScript;
@@ -51,7 +52,7 @@ public class OrionSS extends Mission {
 
     @Override
     public void onMissionStart() {
-        TASK_MANAGER.addTask();
+        TASK_MANAGER.addTask(new StartQuest(this), new GetShears(this), new ShearSheep(this), new SpinWool(this), new FinishQuest(this));
     }
 
     @Override
