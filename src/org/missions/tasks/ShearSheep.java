@@ -27,7 +27,8 @@ public class ShearSheep extends Task<OrionSS> {
         return configs.get(179) == 1 && inventory.getAmount(SS_QuestObject.BALL_OF_WOOL.getItemID()) + inventory.getAmount(SS_QuestObject.WOOL.getItemID()) < 20 && inventory.getItem(SS_QuestObject.SHEARS.getItemID()) != null;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void execute() {
         sheep = npcs.closest((Filter<NPC>) npc -> {
             if (npc == null)

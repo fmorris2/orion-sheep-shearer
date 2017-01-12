@@ -26,7 +26,8 @@ public class GetShears extends Task<OrionSS> {
     @Override
     public void execute() {
         shears = groundItems.closest(SS_QuestObject.SHEARS.getObjectArea(), SS_QuestObject.SHEARS.getItemID());
-        if (shears != null && map.canReach(shears)) {
+        boolean inArea = SS_QuestObject.SHEARS.getObjectArea().contains(myPlayer());
+        if (shears != null && inArea) {
             if (myPlayer().isMoving() || myPlayer().getAnimation() != -1)
                 return;
 
@@ -34,7 +35,7 @@ public class GetShears extends Task<OrionSS> {
             if (shears.interact(SS_QuestObject.SHEARS.getAction()))
                 Timing.waitCondition(() -> inventory.getItems().length != inventory_cache.length || myPlayer().isMoving(), 150, random(2000, 2500));
         } else {
-            if (!SS_QuestObject.SHEARS.getObjectArea().contains(myPlayer())) {
+            if (!inArea) {
                 if (walkUtils.walkToArea(SS_QuestObject.SHEARS.getObjectArea(), () -> {
                     shears = groundItems.closest(SS_QuestObject.SHEARS.getObjectArea(), SS_QuestObject.SHEARS.getItemID());
                     return shears != null && shears.isVisible() && map.canReach(shears);
