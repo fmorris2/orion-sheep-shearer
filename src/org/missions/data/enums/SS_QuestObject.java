@@ -6,7 +6,7 @@ import org.osbot.rs07.api.map.Position;
 /**
  * Created by Sphiinx on 1/11/2017.
  */
-public enum QuestObject {
+public enum SS_QuestObject {
 
     SHEARS("Take", 1735, null, new Area(new Position[]{
             new Position(3193, 3276, 0),
@@ -28,7 +28,7 @@ public enum QuestObject {
     private final int[] OBJECT_IDS;
     private final Area OBJECT_AREA;
 
-    QuestObject(String action, int item_id, int[] object_ids, Area object_area) {
+    SS_QuestObject(String action, int item_id, int[] object_ids, Area object_area) {
         this.ACTION = action;
         this.ITEM_ID = item_id;
         this.OBJECT_IDS = object_ids;

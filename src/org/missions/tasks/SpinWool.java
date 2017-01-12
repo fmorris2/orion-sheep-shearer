@@ -1,7 +1,7 @@
 package org.missions.tasks;
 
 import org.missions.OrionSS;
-import org.missions.data.enums.QuestObject;
+import org.missions.data.enums.SS_QuestObject;
 import org.osbot.rs07.api.model.RS2Object;
 import org.osbot.rs07.api.ui.RS2Widget;
 import viking.api.Timing;
@@ -24,20 +24,20 @@ public class SpinWool extends Task<OrionSS> {
 
     @Override
     public boolean validate() {
-        return configs.get(179) == 1 && inventory.getAmount(QuestObject.BALL_OF_WOOL.getItemID()) + inventory.getAmount(QuestObject.WOOL.getItemID()) >= 20 && inventory.getAmount(QuestObject.WOOL.getItemID()) > 0;
+        return configs.get(179) == 1 && inventory.getAmount(SS_QuestObject.BALL_OF_WOOL.getItemID()) + inventory.getAmount(SS_QuestObject.WOOL.getItemID()) >= 20 && inventory.getAmount(SS_QuestObject.WOOL.getItemID()) > 0;
     }
 
     @Override
     public void execute() {
-        spinning_wheel = objects.closest(QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), QuestObject.SPINNING_WHEEL.getObjectIDs());
+        spinning_wheel = objects.closest(SS_QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), SS_QuestObject.SPINNING_WHEEL.getObjectIDs());
         if (spinning_wheel != null && map.canReach(spinning_wheel)) {
             spinWool();
         } else {
-            if (walkUtils.walkToArea(QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), () -> {
-                spinning_wheel = objects.closest(QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), QuestObject.SPINNING_WHEEL.getObjectIDs());
+            if (walkUtils.walkToArea(SS_QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), () -> {
+                spinning_wheel = objects.closest(SS_QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), SS_QuestObject.SPINNING_WHEEL.getObjectIDs());
                 return spinning_wheel != null && spinning_wheel.isVisible() && map.canReach(spinning_wheel);
             })) {
-                Timing.waitCondition(() -> npcs.closest(QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), QuestObject.SPINNING_WHEEL.getObjectIDs()) != null, 150, random(2000, 2500));
+                Timing.waitCondition(() -> npcs.closest(SS_QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), SS_QuestObject.SPINNING_WHEEL.getObjectIDs()) != null, 150, random(2000, 2500));
             }
         }
     }

@@ -6,7 +6,7 @@ import org.osbot.rs07.api.map.Position;
 /**
  * Created by Sphiinx on 1/11/2017.
  */
-public enum QuestNPC {
+public enum SS_QuestNPC {
 
     FARMER_FRED("Fred the Farmer", new Area(new Position[]{
             new Position(3183, 3280, 0),
@@ -32,7 +32,7 @@ public enum QuestNPC {
     private final String NPC_NAME;
     private final Area NPC_AREA;
 
-    QuestNPC(String npc_name, Area npc_area) {
+    SS_QuestNPC(String npc_name, Area npc_area) {
         this.NPC_NAME = npc_name;
         this.NPC_AREA = npc_area;
     }
