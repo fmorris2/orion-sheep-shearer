@@ -2,6 +2,7 @@ package org.missions.tasks;
 
 import org.missions.OrionSS;
 import org.missions.data.enums.SS_QuestNPC;
+import org.missions.data.enums.SS_QuestObject;
 import org.osbot.rs07.api.model.NPC;
 import viking.api.Timing;
 import viking.framework.task.Task;
@@ -9,18 +10,17 @@ import viking.framework.task.Task;
 /**
  * Created by Sphiinx on 1/11/2017.
  */
-public class StartQuest extends Task<OrionSS> {
-
+public class SS_FinishQuest extends Task<OrionSS> {
 
     private NPC farmer_fred;
 
-    public StartQuest(OrionSS mission) {
+    public SS_FinishQuest(OrionSS mission) {
         super(mission);
     }
 
     @Override
     public boolean validate() {
-        return configs.get(179) == 0;
+        return (configs.get(179) == 1 && inventory.getAmount(SS_QuestObject.BALL_OF_WOOL.getItemID()) >= 20) || configs.get(179) == 20;
     }
 
     @Override
@@ -40,8 +40,7 @@ public class StartQuest extends Task<OrionSS> {
 
     @Override
     public String toString() {
-        return "Starting Sheep Shearer";
+        return "Finishing Sheep Shearer";
     }
-
 }
 
