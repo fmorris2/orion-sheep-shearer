@@ -16,7 +16,7 @@ public class OrionSS extends Mission {
 
     @Override
     public boolean canEnd() {
-        return false;
+        return configs.get(179) >= 21;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class OrionSS extends Mission {
 
     @Override
     public String getCurrentTaskName() {
-        return null;
+        return TASK_MANAGER.getStatus();
     }
 
     @Override
