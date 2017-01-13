@@ -3,19 +3,25 @@ package org.missions.tasks;
 import org.missions.OrionSS;
 import org.missions.data.enums.SS_QuestNPC;
 import org.missions.data.enums.SS_QuestObject;
+import org.osbot.rs07.api.filter.ActionFilter;
 import org.osbot.rs07.api.filter.Filter;
+import org.osbot.rs07.api.filter.NameFilter;
 import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.api.model.NPC;
-import viking.api.Timing;
-import viking.framework.task.Task;
 
-import java.util.Arrays;
+import viking.api.Timing;
+import viking.api.filter.VFilters;
+import viking.framework.task.Task;
 
 /**
  * Created by Sphiinx on 1/11/2017.
  */
-public class ShearSheep extends Task<OrionSS> {
-
+public class ShearSheep extends Task<OrionSS> 
+{
+	private static final Filter<NPC> ACTION_FILTER = VFilters.and(new ActionFilter<NPC>("Shear"), VFilters.not(new ActionFilter<NPC>("Shear"), new ActionFilter<NPC>("Talk-to")));
+	private static final Filter<NPC> NAME_FILTER = new NameFilter<NPC>("Sheep");
+	private static final Filter<NPC> SHEEP_FILTER = VFilters.and(ACTION_FILTER, NAME_FILTER);
+	
     private NPC sheep;
 
     public ShearSheep(OrionSS mission) {
@@ -30,28 +36,13 @@ public class ShearSheep extends Task<OrionSS> {
     @SuppressWarnings("unchecked")
 	@Override
     public void execute() {
-        sheep = npcs.closest((Filter<NPC>) npc -> {
-            if (npc == null)
-                return false;
-
-            final String NPC_NAME = npc.getName();
-            if (NPC_NAME == null)
-                return false;
-
-            if (!SS_QuestNPC.SHEEP.getNPCArea().contains(npc))
-                return false;
-
-            final String[] ACTIONS = npc.getActions();
-            if (Arrays.asList(ACTIONS).contains("Talk-to"))
-                return false;
-
-            return true;
-        });
-        if (sheep != null && map.canReach(sheep)) {
+        sheep = npcs.closest(SHEEP_FILTER);
+        if (sheep != null) {
             if (myPlayer().isMoving() || myPlayer().getAnimation() != -1)
                 return;
 
             final Item[] inventory_cache = inventory.getItems();
+            script.log(this, false, "Clicking sheep...");
             if (iFact.clickNpc("Shear", sheep).execute())
                 Timing.waitCondition(() -> inventory.getItems().length != inventory_cache.length || myPlayer().isMoving() || myPlayer().isAnimating(), 150, random(2000, 2500));
         } else {
