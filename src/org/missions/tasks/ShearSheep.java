@@ -52,7 +52,7 @@ public class ShearSheep extends Task<OrionSS> {
                 return;
 
             final Item[] inventory_cache = inventory.getItems();
-            if (sheep.interact("Shear"))
+            if (iFact.clickNpc("Shear", sheep).execute())
                 Timing.waitCondition(() -> inventory.getItems().length != inventory_cache.length || myPlayer().isMoving() || myPlayer().isAnimating(), 150, random(2000, 2500));
         } else {
             if (walkUtils.walkToArea(SS_QuestNPC.SHEEP.getNPCArea(), () -> {
