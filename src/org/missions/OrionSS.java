@@ -52,7 +52,7 @@ public class OrionSS extends Mission {
 
     @Override
     public void onMissionStart() {
-        TASK_MANAGER.addTask(new SS_StartQuest(this), new GetShears(this), new ShearSheep(this), new SpinWool(this), new SS_FinishQuest(this));
+        TASK_MANAGER.addTask(new DepositItems(this), new SS_StartQuest(this), new GetShears(this), new ShearSheep(this), new SpinWool(this), new SS_FinishQuest(this));
     }
 
     @Override
