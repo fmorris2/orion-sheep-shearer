@@ -4,6 +4,7 @@ import org.missions.OrionSS;
 import org.missions.data.enums.SS_QuestNPC;
 import org.missions.data.enums.SS_QuestObject;
 import org.osbot.rs07.api.filter.ActionFilter;
+import org.osbot.rs07.api.filter.AreaFilter;
 import org.osbot.rs07.api.filter.Filter;
 import org.osbot.rs07.api.filter.NameFilter;
 import org.osbot.rs07.api.model.Item;
@@ -18,9 +19,10 @@ import viking.framework.task.Task;
  */
 public class ShearSheep extends Task<OrionSS> 
 {
-	private static final Filter<NPC> ACTION_FILTER = VFilters.and(new ActionFilter<NPC>("Shear"), VFilters.not(new ActionFilter<NPC>("Shear"), new ActionFilter<NPC>("Talk-to")));
-	private static final Filter<NPC> NAME_FILTER = new NameFilter<NPC>("Sheep");
-	private static final Filter<NPC> SHEEP_FILTER = VFilters.and(ACTION_FILTER, NAME_FILTER);
+	private static final Filter ACTION_FILTER = VFilters.and(new ActionFilter<NPC>("Shear"), VFilters.not(new ActionFilter<NPC>("Shear"), new ActionFilter<NPC>("Talk-to")));
+	private static final Filter<NPC> NAME_FILTER = new NameFilter<>("Sheep");
+	private static final Filter<NPC> AREA_FILTER = new AreaFilter<>(SS_QuestNPC.SHEEP.getNPCArea());
+	private static final Filter SHEEP_FILTER = VFilters.and(AREA_FILTER, VFilters.and(NAME_FILTER, ACTION_FILTER));
 	
     private NPC sheep;
 

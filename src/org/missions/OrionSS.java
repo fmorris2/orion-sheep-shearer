@@ -16,7 +16,7 @@ public class OrionSS extends Mission {
 
     @Override
     public boolean canEnd() {
-        return configs.get(179) >= 21;
+        return questing.closeQuestCompletion() && configs.get(179) >= 21;
     }
 
     @Override

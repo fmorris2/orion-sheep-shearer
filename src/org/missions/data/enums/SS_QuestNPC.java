@@ -20,13 +20,14 @@ public enum SS_QuestNPC {
             new Position(3205, 3275, 0),
             new Position(3209, 3275, 0),
             new Position(3211, 3273, 0),
-            new Position(3211, 3270, 0),
+            new Position(3211, 3269, 0),
             new Position(3212, 3268, 0),
             new Position(3212, 3257, 0),
             new Position(3194, 3257, 0),
+            new Position(3193, 3258, 0),
             new Position(3193, 3259, 0),
             new Position(3192, 3260, 0),
-            new Position(3193, 3262, 0)
+            new Position(3193, 3261, 0)
     }));
 
     private final String NPC_NAME;
