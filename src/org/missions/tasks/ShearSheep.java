@@ -36,23 +36,21 @@ public class ShearSheep extends Task<OrionSS>
     @SuppressWarnings("unchecked")
 	@Override
     public void execute() {
-        sheep = npcs.closest(SHEEP_FILTER);
-        if (sheep != null) {
-            if (myPlayer().isMoving() || myPlayer().getAnimation() != -1)
-                return;
-
-            final Item[] inventory_cache = inventory.getItems();
-            script.log(this, false, "Clicking sheep...");
-            if (iFact.clickNpc("Shear", sheep).execute())
-                Timing.waitCondition(() -> inventory.getItems().length != inventory_cache.length || myPlayer().isMoving() || myPlayer().isAnimating(), 150, random(2000, 2500));
-        } else {
-            if (walkUtils.walkToArea(SS_QuestNPC.SHEEP.getNPCArea(), () -> {
-                sheep = npcs.closest(SS_QuestNPC.SHEEP.getNPCArea(), SS_QuestNPC.SHEEP.getNPCName());
-                return sheep != null && sheep.isVisible() && map.canReach(sheep);
-            })) {
-                Timing.waitCondition(() -> npcs.closest(SS_QuestNPC.SHEEP.getNPCArea(), SS_QuestNPC.SHEEP.getNPCName()) != null, 150, random(2000, 2500));
-            }
-        }
+    	if(!SS_QuestNPC.SHEEP.getNPCArea().contains(myPosition()))
+    		walkUtils.walkToArea(SS_QuestNPC.SHEEP.getNPCArea());
+    	else
+    	{
+	        sheep = npcs.closest(SHEEP_FILTER);
+	        if (sheep != null) {
+	            if (myPlayer().isMoving() || myPlayer().getAnimation() != -1)
+	                return;
+	
+	            final Item[] inventory_cache = inventory.getItems();
+	            script.log(this, false, "Clicking sheep...");
+	            if (iFact.clickNpc("Shear", sheep).execute())
+	                Timing.waitCondition(() -> inventory.getItems().length != inventory_cache.length || myPlayer().isMoving() || myPlayer().isAnimating(), 150, random(2000, 2500));
+	        }
+    	}
     }
 
     @Override
