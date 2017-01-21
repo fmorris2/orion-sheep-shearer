@@ -38,7 +38,7 @@ public class GetShears extends Task<OrionSS> {
             if (!inArea) {
                 if (walkUtils.walkToArea(SS_QuestObject.SHEARS.getObjectArea(), () -> {
                     shears = groundItems.closest(SS_QuestObject.SHEARS.getObjectArea(), SS_QuestObject.SHEARS.getItemID());
-                    return shears != null && shears.isVisible() && map.canReach(shears);
+                    return shears != null && map.canReach(shears);
                 })) {
                     Timing.waitCondition(() -> groundItems.closest(SS_QuestObject.SHEARS.getObjectArea(), SS_QuestObject.SHEARS.getItemID()) != null, 150, random(2000, 2500));
                 }

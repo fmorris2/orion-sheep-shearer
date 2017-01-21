@@ -31,7 +31,7 @@ public class SS_StartQuest extends Task<OrionSS> {
         } else {
             if (walkUtils.walkToArea(SS_QuestNPC.FARMER_FRED.getNPCArea(), () -> {
                 farmer_fred = npcs.closest(SS_QuestNPC.FARMER_FRED.getNPCArea(), SS_QuestNPC.FARMER_FRED.getNPCName());
-                return farmer_fred != null && farmer_fred.isVisible() && map.canReach(farmer_fred);
+                return farmer_fred != null && map.canReach(farmer_fred);
             })) {
                 Timing.waitCondition(() -> npcs.closest(SS_QuestNPC.FARMER_FRED.getNPCArea(), SS_QuestNPC.FARMER_FRED.getNPCName()) != null, 150, random(2000, 2500));
             }

@@ -45,7 +45,7 @@ public class ShearSheep extends Task<OrionSS> {
         } else {
             if (walkUtils.walkToArea(SS_QuestNPC.SHEEP.getNPCArea(), () -> {
                 sheep = npcs.closest(SS_QuestNPC.SHEEP.getNPCArea(), SS_QuestNPC.SHEEP.getNPCName());
-                return sheep != null && sheep.isVisible() && map.canReach(sheep);
+                return sheep != null && map.canReach(sheep);
             })) {
                 Timing.waitCondition(() -> npcs.closest(SS_QuestNPC.SHEEP.getNPCArea(), SS_QuestNPC.SHEEP.getNPCName()) != null, 150, random(2000, 2500));
             }

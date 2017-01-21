@@ -35,7 +35,7 @@ public class SpinWool extends Task<OrionSS> {
         } else {
             if (walkUtils.walkToArea(SS_QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), () -> {
                 spinning_wheel = objects.closest(SS_QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), SS_QuestObject.SPINNING_WHEEL.getObjectIDs());
-                return spinning_wheel != null && spinning_wheel.isVisible() && map.canReach(spinning_wheel);
+                return spinning_wheel != null && map.canReach(spinning_wheel);
             })) {
                 Timing.waitCondition(() -> npcs.closest(SS_QuestObject.SPINNING_WHEEL.getObjectArea().setPlane(1), SS_QuestObject.SPINNING_WHEEL.getObjectIDs()) != null, 150, random(2000, 2500));
             }
