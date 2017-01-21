@@ -17,13 +17,8 @@ import viking.framework.task.Task;
 /**
  * Created by Sphiinx on 1/11/2017.
  */
-public class ShearSheep extends Task<OrionSS> 
-{
-	private static final Filter ACTION_FILTER = VFilters.and(new ActionFilter<NPC>("Shear"), VFilters.not(new ActionFilter<NPC>("Shear"), new ActionFilter<NPC>("Talk-to")));
-	private static final Filter<NPC> NAME_FILTER = new NameFilter<>("Sheep");
-	private static final Filter<NPC> AREA_FILTER = new AreaFilter<>(SS_QuestNPC.SHEEP.getNPCArea());
-	private static final Filter SHEEP_FILTER = VFilters.and(AREA_FILTER, VFilters.and(NAME_FILTER, ACTION_FILTER));
-	
+public class ShearSheep extends Task<OrionSS> {
+
     private NPC sheep;
 
     public ShearSheep(OrionSS mission) {
@@ -36,9 +31,9 @@ public class ShearSheep extends Task<OrionSS>
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public void execute() {
-        sheep = npcs.closest(SHEEP_FILTER);
+        sheep = getValidSheep();
         if (sheep != null) {
             if (myPlayer().isMoving() || myPlayer().getAnimation() != -1)
                 return;
@@ -55,6 +50,15 @@ public class ShearSheep extends Task<OrionSS>
                 Timing.waitCondition(() -> npcs.closest(SS_QuestNPC.SHEEP.getNPCArea(), SS_QuestNPC.SHEEP.getNPCName()) != null, 150, random(2000, 2500));
             }
         }
+    }
+
+    private NPC getValidSheep() {
+        final Filter ACTION_FILTER = VFilters.and(new ActionFilter<NPC>("Shear"), VFilters.not(new ActionFilter<>("Shear"), new ActionFilter<NPC>("Talk-to")));
+        final Filter<NPC> NAME_FILTER = new NameFilter<>("Sheep");
+        final Filter<NPC> AREA_FILTER = new AreaFilter<>(SS_QuestNPC.SHEEP.getNPCArea());
+        final Filter SHEEP_FILTER = VFilters.and(AREA_FILTER, VFilters.and(NAME_FILTER, ACTION_FILTER));
+
+        return npcs.closest(SHEEP_FILTER);
     }
 
     @Override
