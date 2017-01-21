@@ -17,6 +17,7 @@ public class SpinWool extends Task<OrionSS> {
     private final int SPINNING_WIDGET_CHILD = 101;
     private final int ENTER_AMOUNT = 162;
     private final int ENTER_AMOUNT_CHILD = 33;
+    private long last_spinning_time;
 
     public SpinWool(OrionSS mission) {
         super(mission);
@@ -43,19 +44,20 @@ public class SpinWool extends Task<OrionSS> {
     }
 
     private void spinWool() {
-        if (myPlayer().isMoving() || myPlayer().getAnimation() != -1)
-            return;
-
-        final RS2Widget ENTER_AMOUNT_WIDGET = widgets.get(ENTER_AMOUNT, ENTER_AMOUNT_CHILD);
-        if (ENTER_AMOUNT_WIDGET != null && ENTER_AMOUNT_WIDGET.isVisible()) {
-            if (keyboard.typeString(Integer.toString(random(20, 99))))
-                Timing.waitCondition(() -> myPlayer().isAnimating(), 150, random(2000, 2500));
-        } else if (widgets.get(SPINNING_WIDGET, SPINNING_WIDGET_CHILD) != null) {
-            if (widgets.interact(SPINNING_WIDGET, SPINNING_WIDGET_CHILD, "Make X"))
-                Timing.waitCondition(() -> widgets.get(ENTER_AMOUNT, ENTER_AMOUNT_CHILD) != null, 150, random(1500, 2000));
-        } else {
-            if (spinning_wheel.interact("Spin"))
-                Timing.waitCondition(() -> widgets.get(SPINNING_WIDGET, SPINNING_WIDGET_CHILD) != null, 150, random(2000, 2500));
+        if (myPlayer().getAnimation() != -1) {
+            last_spinning_time = Timing.currentMs();
+        } else if (Timing.timeFromMark(last_spinning_time) > 3000) {
+            final RS2Widget ENTER_AMOUNT_WIDGET = widgets.get(ENTER_AMOUNT, ENTER_AMOUNT_CHILD);
+            if (ENTER_AMOUNT_WIDGET != null && ENTER_AMOUNT_WIDGET.isVisible()) {
+                if (keyboard.typeString(Integer.toString(random(20, 99))))
+                    Timing.waitCondition(() -> myPlayer().isAnimating(), 150, random(2000, 2500));
+            } else if (widgets.get(SPINNING_WIDGET, SPINNING_WIDGET_CHILD) != null && widgets.get(SPINNING_WIDGET, SPINNING_WIDGET_CHILD).isVisible()) {
+                if (widgets.interact(SPINNING_WIDGET, SPINNING_WIDGET_CHILD, "Make X"))
+                    Timing.waitCondition(() -> widgets.get(ENTER_AMOUNT, ENTER_AMOUNT_CHILD) != null && widgets.get(ENTER_AMOUNT, ENTER_AMOUNT_CHILD).isVisible(), 150, random(2000, 2500));
+            } else {
+                if (spinning_wheel.interact("Spin"))
+                    Timing.waitCondition(() -> widgets.get(SPINNING_WIDGET, SPINNING_WIDGET_CHILD) != null && widgets.get(SPINNING_WIDGET, SPINNING_WIDGET_CHILD).isVisible(), 150, random(4000, 5000));
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package org.missions;
 
 import org.missions.tasks.*;
+import org.osbot.rs07.event.webwalk.PathPreferenceProfile;
 import viking.framework.goal.GoalList;
 import viking.framework.mission.Mission;
 import viking.framework.script.VikingScript;
