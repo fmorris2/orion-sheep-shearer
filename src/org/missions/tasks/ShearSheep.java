@@ -20,7 +20,7 @@ import viking.framework.task.Task;
 public class ShearSheep extends Task<OrionSS> {
 
     private NPC sheep;
-	private static final Filter<NPC> ACTION_FILTER = VFilters.and(new ActionFilter<NPC>("Shear"), VFilters.not(new ActionFilter<NPC>("Shear"), new ActionFilter<NPC>("Talk-to")));
+	private static final Filter<NPC> ACTION_FILTER = VFilters.and(new ActionFilter<NPC>("Shear"), VFilters.not(new ActionFilter<NPC>("Talk-to")));
 	private static final Filter<NPC> NAME_FILTER = new NameFilter<NPC>("Sheep");
 	private static final Filter<NPC> AREA_FILTER = new AreaFilter<NPC>(SS_QuestNPC.SHEEP.getNPCArea());
 	private static final Filter<NPC> SHEEP_FILTER = VFilters.and(ACTION_FILTER, NAME_FILTER, AREA_FILTER);
