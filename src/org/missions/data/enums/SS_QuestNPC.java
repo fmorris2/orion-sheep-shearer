@@ -14,6 +14,7 @@ public enum SS_QuestNPC {
             new Position(3193, 3268, 0),
             new Position(3183, 3268, 0)
     })),
+    
     SHEEP("Sheep", new Area(3193, 3277, 3213, 3257));
 
     private final String NPC_NAME;

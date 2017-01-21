@@ -15,7 +15,10 @@ public class SS_DepositItems extends Task<OrionSS> {
     }
 
     public boolean validate() {
-        return inventory.getItems().length > 0 && !SS_Vars.get().has_emptied_inventory;
+        if (inventory.isEmpty())
+            SS_Vars.get().has_emptied_inventory = true;
+
+        return !inventory.isEmpty() && !SS_Vars.get().has_emptied_inventory;
     }
 
     public void execute() {
