@@ -22,7 +22,7 @@ public class OrionSS extends Mission {
 
     @Override
     public String getMissionName() {
-        return null;
+        return "Orion Sheep Shearer";
     }
 
     @Override
